@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { OpenAI } from "openai";
+import { processExcelFile } from "@/app/utils/excel";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || "", // Ensure the API key is set
@@ -16,9 +17,19 @@ export async function POST(req: Request) {
   }
 
   try {
+    const respuestas = processExcelFile();
+    console.log("respuestas", respuestas);
+    // return Response.json({ response: respuestas });
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo", // or 'gpt-4' for better results
-      messages: [{ role: "user", content: prompt }],
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are a financial personal asistant.  Here's additional context to consider for answering: " + JSON.stringify(respuestas),
+        },
+        { role: "user", content: prompt },
+      ],
     });
 
     const aiResponse =
