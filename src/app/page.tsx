@@ -44,7 +44,7 @@ export default function Home() {
         <h1 className="text-2xl font-bold mb-4 text-center">AI Chat</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <textarea
-            className="w-full p-3 border rounded bg-black focus:outline-none focus:ring focus:ring-blue-300"
+            className="w-full p-3 border rounded bg-black focus:outline-none focus:ring focus:ring-blue-300 text-white"
             placeholder="Enter your prompt here..."
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
@@ -62,7 +62,7 @@ export default function Home() {
 
         {error && <p className="text-red-500 mt-4">{error}</p>}
         {response && (
-          <div className="mt-4 p-3 border rounded bg-black-50">
+          <div className="mt-4 p-3 border rounded bg-black-5 text-white">
             <h2 className="text-lg font-bold">Response:</h2>
             <p>{response}</p>
           </div>
